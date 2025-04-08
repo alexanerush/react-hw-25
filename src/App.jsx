@@ -1,16 +1,14 @@
-import React from "react";
-import ItemList from "./components/ItemList";
-import "./App.css";
-
-
+import { Routes, Route } from 'react-router-dom'
+import MainPage from './pages/MainPage'
+import MenuPage from './pages/MenuPage'
 
 function App() {
   return (
-    <div>
-      <h1>Мои задачи:</h1>
-      <ItemList />
-    </div>
-  );
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+      <Route path="/menu" element={<MenuPage />} />
+    </Routes>
+  )
 }
 
-export default App;
+export default App

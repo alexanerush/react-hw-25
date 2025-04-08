@@ -1,0 +1,203 @@
+.menu-page {
+    background-color: #f8fdff;
+    padding: 40px 0;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #f6fcff;
+  }
+  
+  .menu-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .menu-title {
+    font-size: 50px;
+    font-weight: 400;
+    letter-spacing: 1.65px;
+    color:rgba(53, 184, 190, 1);
+    margin-bottom: 10px;
+  }
+  
+  .menu-subtitle {
+    color: #777;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.36px;
+    margin-top:1.5rem;
+    margin-bottom: 3rem;
+
+  }
+
+  .menu-subtitle .highlight {
+    color:rgba(53, 184, 190, 1);
+  }
+  
+  .menu-filters {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 40px;
+  }
+  
+  .filter-button {
+    padding: 15px 30px;
+    border: 1px solid rgb(221, 217, 217);
+    background-color: #f8fdff;
+    color: rgb(31, 31, 31);
+    border-radius: 5px;
+    gap: 2rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-bottom: 2rem;
+  }
+  
+  .filter-button:hover {
+    background-color: rgba(53, 184, 190, 1);
+    color: white;
+  }
+  
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 столбца */
+    grid-template-rows: repeat(3, auto);   /* 3 строки */
+    gap: 24px;
+    margin-bottom: 30px;
+    justify-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  
+  
+  .menu-card {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    gap: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+  
+  .menu-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: none;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+  }
+  .menu-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+  }
+
+  .menu-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-weight: bold;
+    white-space: nowrap;
+
+
+  }
+  .menu-card-header .price {
+    color: #33b8be;
+    font-weight:100;
+    gap: 2rem;
+    margin-left: 2rem;
+    white-space: nowrap;
+
+  }
+  
+  
+  .menu-description {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 12px;
+   
+  }
+  
+  .menu-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  
+  .quantity-input {
+    width: 50px;
+    padding: 6px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .add-button {
+    padding: 6px 12px;
+    background-color:#33b8be;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .add-button:hover {
+    background-color: #33b8be;
+  }
+  
+  .see-more-button {
+    padding: 15px 25px;
+    background-color: #33b8be;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 2rem;
+  }
+  
+  .see-more-button:hover {
+    background-color: #33b8be;
+  }
+  
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+    width: max-content;
+    background-color: rgb(186, 175, 175);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 6px 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 130%; 
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.3s;
+    white-space: nowrap;
+  }
+  
+  .tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+  
