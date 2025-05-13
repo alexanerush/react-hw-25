@@ -1,70 +1,77 @@
-import React from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import menuItems from '../data/menuItems';
+import React, { Component } from 'react';
+import MenuCard from '../components/Card';
+import Button from '../components/Button'; 
 import './MenuPage.css';
 
-const PhoneTooltip = ({ children }) => {
-    return (
-      <span className="tooltip-wrapper">
-        {children}
-        <span className="tooltip-text">+3706578976</span>
-      </span>
-    );
+class MenuPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: [],
+      visibleCount: 6,
+    };
+  }
+
+  componentDidMount() {
+    fetch('https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals')
+      .then((res) => res.json())
+      .then((data) => this.setState({ products: data }))
+      .catch((err) => console.error('Error fetching meals:', err));
+  }
+
+  handleSeeMore = () => {
+    this.setState((prevState) => ({
+      visibleCount: prevState.visibleCount + 6,
+    }));
   };
-  
 
-function MenuPage() {
-  return (
-    <>
-      <Header />
-      <div className="menu-page">
-        <div className="menu-container">
-          <h1 className="menu-title">Browse our menu</h1>
-          <p className="menu-subtitle">
-            Use our menu to place an order online, or{" "}
-             <span className="tooltip">
-                 <span className="highlight">phone</span>
-                     <span className="tooltip-text">+3706543786</span>
-             </span>{" "}
-            our store <br /> to place a pickup order. Fast and fresh food.
-        </p>
-        <div className="menu-filters">
-            {['Dessert', 'Dinner', 'Breakfast'].map((category) => (
-              <button key={category} className="filter-button">{category}</button>
-            ))}
-          </div>
 
-        <div className="menu-container">
-          <div className="menu-grid">
-            {menuItems.map((item, idx) => (
-              <div key={idx} className="menu-card">
-                <img src={item.img} alt={item.title} className="menu-image" />
+  render() {
+    const { products, visibleCount } = this.state;
+    const visibleItems = products.slice(0, visibleCount);
 
-             <div className="menu-content">
-                <div className="menu-card-header">
-                  <h3>{item.title}</h3>
-                  <span class="price">${item.price.toFixed(2)} USD</span>
-                </div>
+    return (
+      <>
+        <div className="menu-page">
+          <div className="menu-container">
+            <h1 className="menu-title">Browse our menu</h1>
+            <p className="menu-subtitle">
+              Use our menu to place an order online, or{' '}
+              <span className="tooltip">
+                <span className="highlight">phone</span>
+                <span className="tooltip-text">+3706543786</span>
+              </span>{' '}
+              our store to place a pickup order. Fast and fresh food.
+            </p>
 
-                <p className="menu-description">{item.description}</p>
+            <div className="menu-filters">
+              {['Dessert', 'Dinner', 'Breakfast'].map((category) => (
+                <button key={category} className="filter-button" disabled>
+                  {category}
+                </button>
+              ))}
+            </div>
 
-                <div className="menu-actions">
-                  <input type="number" defaultValue="1" min="1" className="quantity-input" />
-                  <button className="add-button">Add to cart</button>
-                </div>
-             </div>
-              </div>
-            ))}
-             </div>
-          </div>
-
-          <button className="see-more-button">See more</button>
+            <div className="item-cards">
+          {visibleItems.map(product => (
+            <MenuCard
+              key={product.id}
+              product={product}
+              onAddToCart={this.props.onAddToCart}
+            />
+          ))}
         </div>
+
+        {visibleCount < products.length && (
+          <Button className="button--more" onClick={this.handleSeeMore}>
+            See More
+          </Button>
+        )}
       </div>
-      <Footer />
-    </>
-  );
+    </div>
+      </>
+    );
+  }
 }
 
 export default MenuPage;

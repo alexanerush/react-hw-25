@@ -4,58 +4,60 @@ import logo from '../assets/logo.png';
 import PatternFooter from '../assets/PatternFooter.png';
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 
+// Конфигурация колонок
+const footerSections = [
+  {
+    title: "Company",
+    links: ["Home", "Order", "FAQ", "Contact"],
+  },
+  {
+    title: "Template",
+    links: ["Style Guide", "Changelog", "Licence", "Webflow University"],
+  },
+  {
+    title: "Flowbase",
+    links: ["More Cloneables"],
+  },
+];
+
 const Footer = () => {
   return (
-    <footer class="footer">
-      <div class="footer-top">
-         <div className="pattern">
-              <img src={PatternFooter} alt="pattern" />
-         </div>
-         <div className="columns">    
-            <div class="logo-column">
-                <img src={logo} alt="Logo" class="footer-logo" />
-                <p class="footer-description">
-                    Takeaway & Delivery template <br /> for small – medium businesses.
-                </p>
-            </div>
-            <div className="footer-columns">
-                <div class="footer-column">
-                    <h4>Company</h4>
-                        <ul>
-                            <li><button>Home</button></li>
-                            <li><button>Order</button></li>
-                            <li><button>FAQ</button></li>
-                            <li><button>Contact</button></li>
-                        </ul>
-                </div>
+    <footer className="footer">
+      <div className="footer-top">
+        <div className="pattern">
+          <img src={PatternFooter} alt="pattern" />
+        </div>
 
-                <div class="footer-column">
-                    <h4>Template</h4>
-                        <ul>
-                            <li><button>Style Guide</button></li>
-                            <li><button>Changelog</button></li>
-                            <li><button>Licence</button></li>
-                            <li><button>Webflow University</button></li>
-                        </ul>
-                </div>
+        <div className="columns">
+          <div className="logo-column">
+            <img src={logo} alt="Logo" className="footer-logo" />
+            <p className="footer-description">
+              Takeaway & Delivery template <br /> for small – medium businesses.
+            </p>
+          </div>
 
-                <div class="footer-column">
-                    <h4>Flowbase</h4>
-                        <ul>
-                            <li><button>More Cloneables</button></li>
-                        </ul>
-                 </div>
-            </div>
+          <div className="footer-columns">
+            {footerSections.map((section, index) => (
+              <div className="footer-column" key={index}>
+                <h4>{section.title}</h4>
+                <ul>
+                  {section.links.map((link, i) => (
+                    <li key={i}>
+                      <button>{link}</button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-
-
-      <div class="footer-bottom">
+      <div className="footer-bottom">
         <p>
-          Built by <span class="link">Flowbase</span> · Powered by <span className="link">Webflow</span>
+          Built by <span className="link">Flowbase</span> · Powered by <span className="link">Webflow</span>
         </p>
-        <div class="footer-socials">
+        <div className="footer-socials">
           <FaInstagram />
           <FaTwitter />
           <FaYoutube />

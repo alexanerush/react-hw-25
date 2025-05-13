@@ -1,12 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
 import './Header.css'; 
-
+import Cart from './Cart';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
-import logo2 from '../assets/logo2.png';
 
-
-const Header = () => {
+class Header extends Component {
+  render() {
   return (
     <header className="header">
       <nav className="nav">
@@ -14,19 +13,18 @@ const Header = () => {
           <img src={logo} alt="Logo" /> 
         </div>
 
-        <ul className="nav-links">
-          <li><Link to="/"><button>Home</button></Link></li>
-          <li><Link to="/menu"><button>Menu</button></Link></li>
-          <li><Link to="/company"><button>Company</button></Link></li>
-          <li><Link to="/login"><button>Login</button></Link></li>
-        </ul>
-
-        <div className="logo2">
-          <img src={logo2} alt="Logo2" /> 
-        </div>
+      <ul className="nav-links">
+        <li><Link to="/" className="nav-link">Home</Link></li>
+        <li><Link to="/menu" className="nav-link">Menu</Link></li>
+        <li><Link to="/company" className="nav-link">Company</Link></li>
+        <li><Link to="/login" className="nav-link">Login</Link></li>
+        <li>
+            <Cart cartCount={this.props.cartCount} />
+        </li>
+      </ul>
       </nav>
     </header>
   );
 };
-
+}
 export default Header;

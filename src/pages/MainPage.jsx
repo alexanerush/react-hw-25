@@ -1,6 +1,4 @@
 import React from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import './MainPage.css';
 import mainImage from '../assets/mainimg.svg';
 import star from '../assets/star.png';
@@ -8,7 +6,6 @@ import star from '../assets/star.png';
 const MainPage = () => {
   return (
     <>
-      <Header />
       <main className="main-page">
         <section className="main">
           <div className="main-text">
@@ -36,7 +33,7 @@ const MainPage = () => {
           </div>
         </section>
       </main>
-      <Footer />
+
     </>
   );
 };

@@ -35,7 +35,7 @@
     margin-left: 40rem;
   }
   
-  .nav-links button {
+  .nav-link {
     background: none;
     border: none;
     color: #333;
@@ -43,10 +43,28 @@
     cursor: pointer;
     padding: 8px 12px;
     transition: color 0.3s ease, background-color 0.3s ease;
-  }
-  
-  .nav-links button:hover {
-    color:rgba(53, 184, 190, 1);
-    background-color:none;
+    text-decoration: none; 
     border-radius: 5px;
   }
+  
+  .nav-link:hover {
+    color: rgba(53, 184, 190, 1);
+    background-color: transparent;
+  }
+  
+  .nav-link.disabled {
+    color: gray;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  .cart-indicator {
+    margin-left: auto;
+    font-weight: bold;
+    color: white;
+    background: #f67280;
+    padding: 5px 10px;
+    border-radius: 10px;
+  }
+  
+  
