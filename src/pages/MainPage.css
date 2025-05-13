@@ -1,0 +1,116 @@
+.main-page {
+    padding: 2rem;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .main{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+    position: relative;
+    background:white;
+    overflow: hidden;
+    padding: 2rem;
+  }
+  
+  .main::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 1440px;
+    height: 820px;
+    background-color: rgba(245, 251, 252, 1);
+    opacity: 0.87;
+    transform: rotate(-30deg);
+    transform-origin: left bottom;
+    z-index: 0;
+  }
+
+  .main-text {
+    max-width: 600px;
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .main-text h1 {
+    font: Inter;
+    white-space: nowrap;
+    font-weight: 400;
+    font-size: 60px;
+    letter-spacing: 1.8px;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index:1;
+    margin-bottom: 2rem;
+  }
+
+  .main-text h1 .blueword {
+    color: #33b8be
+  }
+  
+  .main-text p {
+    font: Inter;
+    font-weight: 400;
+    font-size: 18px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.36px;
+    color: rgba(84, 98, 133, 1);
+    position: relative;
+    z-index:1;
+    margin-bottom: 4rem;
+  }
+  
+  .order-btn {
+    width: 193px;
+    height: 60px;
+    padding: 0.8rem 2rem;
+    background-color: #33b8be;
+    color: white;
+    border: none;
+    font: Inter;
+    font-weight: 400;
+    font-size: 17px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    position: relative;
+    z-index:1;
+    margin-bottom: 2rem;
+  }
+  
+  .order-btn:hover {
+    background-color: #333;
+  }
+  
+  .star img {
+    width: 110px;
+    height: 27px;
+    height: auto;
+    position: relative;
+    z-index:1;
+  }
+ 
+  .reviews h1 {
+    font: Inter;
+    font-weight:400;
+    font-size:16px;
+    letter-spacing: 0%;
+    color: rgba(8, 9, 10, 1);
+  }
+
+  .reviews h1 .hightlight {
+    color: rgba(53, 184, 190, 1);
+  }
+
+  .main-img img {
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+    position: relative;
+    z-index:1;
+  }
+  
