@@ -21,7 +21,7 @@
     border-color: #35B8BE;
   }
 
-  .button--more {
+  .button--more, .button--cancel, .button--submit{
     padding: 1em 2.5em;
     background-color: #35B8BE;
     color: white;
@@ -30,7 +30,16 @@
     margin-top: 1em;
   }
 
-  .button--more:hover {
+  .button--cancel{
+    background-color: #FAFAFA;
+    color: #222222;
+    border-color: rgba(97, 114, 131, 0.2);
+    &:hover{
+      color: #35B8BE;
+      border-color: #35B8BE;
+    }
+  }
+  .button--more, .button--submit:hover {
     background-color: #FAFAFA;
     color: #222222;
   }

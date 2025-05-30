@@ -32,8 +32,9 @@
     gap: 2rem;
     padding: 0;
     margin: 0;
-    margin-left: 40rem;
+    align-items: center;
   }
+  
   
   .nav-link {
     background: none;
