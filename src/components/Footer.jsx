@@ -4,7 +4,7 @@ import logo from '../assets/logo.png';
 import PatternFooter from '../assets/PatternFooter.png';
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 
-// Конфигурация колонок
+
 const footerSections = [
   {
     title: "Company",
