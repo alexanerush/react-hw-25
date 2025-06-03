@@ -1,16 +1,23 @@
 import React from 'react';
-import './Header.css'; 
+import './Header.scss'; 
 import Cart from './Cart';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
+import { User } from 'firebase/auth';
 
-const Header = ({ cartCount, user, onNavigate }) => {
+interface HeaderProps {
+  cartCount: number;
+  user: User | null;
+  onNavigate: (path: string) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ cartCount, user, onNavigate }) => {
   const handleAuthClick = () => {
     if (user) {
-      // выйти
-      onNavigate('/logout'); // ты можешь реализовать отдельную логику выхода
+      
+      onNavigate('/logout'); 
     } else {
-      // перейти на логин
+
       onNavigate('/login');
     }
   };
@@ -18,14 +25,15 @@ const Header = ({ cartCount, user, onNavigate }) => {
   return (
     <header className="header">
       <nav className="nav">
-        <a className="logo" href="#" onClick={() => onNavigate('/')}>
+        <a className="logo" href="#" onClick={(e) => { e.preventDefault(); onNavigate('/'); }}>
           <img src={logo} alt="Logo" /> 
         </a>
 
         <ul className="nav-links">
-          <li><Link to="/" className="nav-link">Home</Link></li>
-          <li><Link to="/menu" className="nav-link">Menu</Link></li>
-          <li><Link to="/company" className="nav-link">Company</Link></li>
+            <li className="nav-link" onClick={() => onNavigate('/')}>Home</li>
+            <li className="nav-link" onClick={() => onNavigate('/menu')}>Menu</li>
+            <li className="nav-link" onClick={() => onNavigate('/company')}>Company</li>
+
 
           <li className="nav-link" onClick={handleAuthClick} style={{ cursor: 'pointer' }}>
             {user ? 'Logout' : 'Login'}

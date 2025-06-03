@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import mainImage from '../assets/mainimg.svg';
-import star from '../assets/star.png'; 
+import star from '../assets/star.png';
 
 const MainPageWrapper = styled.main`
   padding: 2rem;
@@ -38,7 +38,7 @@ const MainText = styled.div`
   max-width: 600px;
   padding: 2rem;
   margin-top: 2rem;
-  flex: 1; 
+  flex: 1;
 `;
 
 const Title = styled.h1`
@@ -93,10 +93,9 @@ const StarWrapper = styled.div`
 `;
 
 const StarImage = styled.img`
-  width: 110px; 
+  width: 110px;
   height: auto;
   margin-right: 5px;
-
 `;
 
 const Reviews = styled.div`
@@ -115,7 +114,7 @@ const HighlightRating = styled.span`
 `;
 
 const MainImage = styled.div`
-  flex: 1; 
+  flex: 1;
   max-width: 50%;
   height: auto;
 `;
@@ -125,22 +124,25 @@ const Image = styled.img`
   height: auto;
 `;
 
-const useFetch = (url) => {
-  const [data, setData] = useState(null);
-  const [status, setStatus] = useState(null);
+function useFetch<T>(url: string) {
+  const [data, setData] = useState<T | null>(null);
+  const [status, setStatus] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(url);
-        const result = await response.json();
+        const result = (await response.json()) as T;
         setData(result);
         setStatus(response.status);
-        
-        localStorage.setItem('apiLog', JSON.stringify({
-          payload: url,
-          responseStatus: response.status
-        }));
+
+        localStorage.setItem(
+          'apiLog',
+          JSON.stringify({
+            payload: url,
+            responseStatus: response.status,
+          }),
+        );
       } catch (error) {
         console.error('Ошибка при получении данных:', error);
       }
@@ -150,13 +152,14 @@ const useFetch = (url) => {
   }, [url]);
 
   return { data, status };
-};
+}
 
-const MainPage = () => {
+const MainPage: React.FC = () => {
+  
   return (
     <MainPageWrapper>
       <MainContent>
-        <BackgroundShape /> 
+        <BackgroundShape />
         <MainText>
           <Title>
             Beautiful food & <br />

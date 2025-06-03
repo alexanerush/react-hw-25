@@ -1,20 +1,32 @@
 import React, { useState } from 'react';
+import { User, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
-import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import Button from '../components/Button.jsx';
 import useFetch from '../hooks/useFetch';
+import Button from '../components/Button';
 import './Login.scss';
 
-const LoginPage = ({ user, onBackHome }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+export interface CustomUser {
+  name: string;
+  email: string;
+}
+
+interface LoginPageProps {
+  user: CustomUser | null;
+  onBackHome: () => void;
+}
+
+const LoginPage: React.FC<LoginPageProps> = ({ user, onBackHome }) => {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string>('');
 
   const withLogger = useFetch();
-  const loginWithLogger = withLogger(signInWithEmailAndPassword);
+  const loginWithLogger = withLogger((email: string, password: string) => 
+    signInWithEmailAndPassword(auth, email, password)
+  );
   const logoutWithLogger = withLogger(signOut);
 
-  const validate = () => {
+  const validate = (): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!email.trim() || !password.trim()) {
@@ -31,12 +43,12 @@ const LoginPage = ({ user, onBackHome }) => {
     return true;
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     try {
-      await loginWithLogger(auth, email, password);
+      await loginWithLogger(email, password);
       setEmail('');
       setPassword('');
     } catch {
@@ -75,7 +87,7 @@ const LoginPage = ({ user, onBackHome }) => {
                   type="text"
                   placeholder="Email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                 />
               </p>
               <p>
@@ -84,7 +96,7 @@ const LoginPage = ({ user, onBackHome }) => {
                   type="password"
                   placeholder="Password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={e => setPassword(e.target.value)}
                 />
               </p>
             </div>

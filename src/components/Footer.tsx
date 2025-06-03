@@ -1,11 +1,15 @@
 import React from 'react';
-import './Footer.css';
+import './Footer.scss';
 import logo from '../assets/logo.png'; 
 import PatternFooter from '../assets/PatternFooter.png';
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 
-// Конфигурация колонок
-const footerSections = [
+interface FooterSection {
+  title: string;
+  links: string[];
+}
+
+const footerSections: FooterSection[] = [
   {
     title: "Company",
     links: ["Home", "Order", "FAQ", "Contact"],
@@ -20,7 +24,7 @@ const footerSections = [
   },
 ];
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <footer className="footer">
       <div className="footer-top">

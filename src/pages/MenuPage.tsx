@@ -1,33 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import MenuCard from '../components/Card';
 import Button from '../components/Button';
-import './MenuPage.css';
+import './MenuPage.scss';
 
-const MenuPage = ({ onAddToCart }) => {
-  const [products, setProducts] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(6);
-  const [selectedCategory, setSelectedCategory] = useState('All');
+export interface Product {
+  id: string | number;
+  img: string;
+  meal: string;
+  price: number;
+  instructions?: string;
+  category?: string;
+}
+
+interface ApiResponse {
+  id: string;
+  image: string;
+  name: string;
+  price: number;
+  instructions?: string;
+  category?: string;
+}
+
+interface MenuPageProps {
+  onAddToCart: (product: Product) => void;
+}
+
+const MenuPage: React.FC<MenuPageProps> = ({ onAddToCart }) => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [visibleCount, setVisibleCount] = useState<number>(6);
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
   useEffect(() => {
     fetch('https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals')
       .then(res => res.json())
-      .then(data => setProducts(data))
+      .then((data: any[]) => {
+        const mapped: Product[] = data.map(item => ({
+          id: item.id,
+          img: item.img,             
+          meal: item.meal,           
+          price: item.price,
+          instructions: item.instructions,
+          category: item.category,
+        }));
+        setProducts(mapped);
+      })
+      
       .catch(err => console.error('Error fetching meals:', err));
   }, []);
+  
 
   const handleSeeMore = () => {
-    setVisibleCount(prevCount => prevCount + 6);
+    setVisibleCount(prev => prev + 6);
   };
 
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
     setVisibleCount(6);
   };
 
-  const filteredProducts =
-    selectedCategory === 'All'
-      ? products
-      : products.filter(product => product.category === selectedCategory);
+  const filteredProducts = selectedCategory === 'All'
+    ? products
+    : products.filter(p => p.category === selectedCategory);
 
   const visibleItems = filteredProducts.slice(0, visibleCount);
 
@@ -45,7 +78,7 @@ const MenuPage = ({ onAddToCart }) => {
         </p>
 
         <div className="menu-filters">
-          {['Dessert', 'Dinner', 'Breakfast'].map((category) => (
+          {['Dessert', 'Dinner', 'Breakfast'].map(category => (
             <button
               key={category}
               className="filter-button"
@@ -60,7 +93,7 @@ const MenuPage = ({ onAddToCart }) => {
           {visibleItems.map(product => (
             <MenuCard
               key={product.id}
-              product={product}
+              product={{ ...product, id: String(product.id) }} 
               onAddToCart={onAddToCart}
             />
           ))}

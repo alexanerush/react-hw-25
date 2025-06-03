@@ -5,13 +5,14 @@ import MenuPage from './pages/MenuPage';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import LoginPage from './pages/Login';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase'; 
+import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
+import { auth } from './firebase';
+import { Product } from './pages/MenuPage'; 
 
-function App() {
-  const [cartCount, setCartCount] = useState(0);
-  const [user, setUser] = useState(null);
-  const navigate = useNavigate(); // используем хук навигации
+const App: React.FC = () => {
+  const [cartCount, setCartCount] = useState<number>(0);
+  const [user, setUser] = useState<FirebaseUser | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (currentUser) => {
@@ -20,16 +21,16 @@ function App() {
     return () => unsub();
   }, []);
 
-  const handleAddToCart = (q) => {
+  const handleAddToCart = (product: Product): void => {
     if (!user) {
-      navigate('/login'); // переход на login если пользователь не авторизован
+      navigate('/login');
       return;
     }
-    setCartCount((c) => c + q);
+    setCartCount((count) => count + 1); 
   };
 
-  const handleNavigate = (to) => {
-    navigate(to); // функция для передачи в Header
+  const handleNavigate = (to: string): void => {
+    navigate(to);
   };
 
   return (
@@ -42,19 +43,16 @@ function App() {
         />
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route
-            path="/menu"
-            element={<MenuPage onAddToCart={handleAddToCart} />}
-          />
-          <Route
+          <Route path="/menu" element={<MenuPage onAddToCart={handleAddToCart} />} />
+          <Route 
             path="/login"
-            element={<LoginPage setUser={setUser} />}
+            element={<LoginPage user={user ? { name: user.displayName || '', email: user.email || '' } : null} onBackHome={() => navigate('/')} />}
           />
         </Routes>
         <Footer />
       </div>
     </div>
   );
-}
+};
 
 export default App;

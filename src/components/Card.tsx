@@ -1,10 +1,23 @@
 import React from 'react';
 import './Card.scss';
-import Button from '../components/Button.jsx';
+import Button from './Button';
 
-const MenuCard = ({ product, onAddToCart }) => {
+interface Product {
+  id: string | number;
+  img: string;
+  meal: string;
+  price: number;
+  instructions?: string;
+}
+
+interface MenuCardProps {
+  product: Product;
+  onAddToCart: (product: Product) => void; 
+}
+
+const MenuCard: React.FC<MenuCardProps> = ({ product, onAddToCart }) => {
   const handleAddToCart = () => {
-    onAddToCart(product);
+    onAddToCart(product); 
   };
 
   return (
@@ -34,3 +47,5 @@ const MenuCard = ({ product, onAddToCart }) => {
 };
 
 export default MenuCard;
+
+  

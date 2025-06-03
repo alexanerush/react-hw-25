@@ -1,9 +1,12 @@
 import { useCallback } from 'react';
 
+type AsyncFunction = (...args: any[]) => Promise<any>;
+
 const useFetch = () => {
-  const withLogger = useCallback((fn) => {
-    return async (...args) => {
-      let body;
+  const withLogger = useCallback(<F extends AsyncFunction>(fn: F) => {
+    return async (...args: Parameters<F>): Promise<ReturnType<F>> => {
+      let body: string;
+
       try {
         body = JSON.stringify(args);
       } catch {
@@ -23,12 +26,12 @@ const useFetch = () => {
         console.log('[fetch success]', ...args, res);
 
         return res;
-      } catch (err) {
+      } catch (err: any) {
         const log = {
           timestamp: new Date().toISOString(),
           body,
           status: 'error',
-          error: err.message,
+          error: err?.message ?? String(err),
         };
         localStorage.setItem('fetch_log', JSON.stringify(log));
         console.error('[fetch error]', ...args, err);
