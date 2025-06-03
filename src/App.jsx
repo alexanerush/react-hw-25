@@ -11,7 +11,7 @@ import { auth } from './firebase';
 function App() {
   const [cartCount, setCartCount] = useState(0);
   const [user, setUser] = useState(null);
-  const navigate = useNavigate(); // используем хук навигации
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (currentUser) => {
@@ -22,14 +22,14 @@ function App() {
 
   const handleAddToCart = (q) => {
     if (!user) {
-      navigate('/login'); // переход на login если пользователь не авторизован
+      navigate('/login'); 
       return;
     }
     setCartCount((c) => c + q);
   };
 
   const handleNavigate = (to) => {
-    navigate(to); // функция для передачи в Header
+    navigate(to);
   };
 
   return (
