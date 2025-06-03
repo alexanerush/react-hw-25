@@ -7,10 +7,10 @@ import logo from '../assets/logo.png';
 const Header = ({ cartCount, user, onNavigate }) => {
   const handleAuthClick = () => {
     if (user) {
-      // выйти
-      onNavigate('/logout'); // ты можешь реализовать отдельную логику выхода
+  
+      onNavigate('/logout'); 
     } else {
-      // перейти на логин
+
       onNavigate('/login');
     }
   };
