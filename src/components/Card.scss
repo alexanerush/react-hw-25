@@ -1,0 +1,77 @@
+.item-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2em;
+    margin: 3em 4em;
+  }
+
+  .item-card {
+    display: flex;
+    flex-direction: row;
+    background-color: #ffffff;
+    padding: 2em 1.5em;
+    border: 0.1em solid rgba(53, 184, 190, 0.15);
+    border-radius: 0.5em;
+    max-width: 100%;
+  }
+
+  .item-card-left {
+    display: flex;
+    align-items: center;
+    margin-right: 1em;
+  }
+
+  .item-img {
+    width: 7em;
+    height: 7em;
+    text-align: center;
+  }
+
+  .item-card-right {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 0.25em;
+  }
+
+  .product-title {
+    font-size: 1.1em;
+    color: #08090A;
+    margin: 0;
+  }
+
+  .card-price {
+    color: #35B8BE;
+    text-align: right;
+  }
+
+  .item-description {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 0.65em;
+    text-align: left;
+  }
+
+  .item-footer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.8em;
+  }
+
+  .item-amount {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FAFAFA;
+    padding: 0.55em 1.45em;
+    border-radius: 0.3em;
+    text-align: center;
+    border: 0.1em solid #DDDDDD;
+  }
