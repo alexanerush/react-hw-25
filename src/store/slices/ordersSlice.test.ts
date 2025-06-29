@@ -75,11 +75,7 @@ describe('ordersSlice', () => {
         { id: 1, product: mockProduct, quantity: 2 },
         { id: 2, product: mockProduct, quantity: 1 },
       ],
-    };
-
-
-
-    
+    };    
     const result = ordersReducer(initialState, clearCart());
     expect(result.orders.length).toBe(0);
   });
