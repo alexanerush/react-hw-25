@@ -1,23 +1,21 @@
 import React from 'react';
-import './Header.scss'; 
+import './Header.scss';
 import Cart from './Cart';
-import { Link } from 'react-router-dom';
+import { CustomUser } from '../pages/Login';
 import logo from '../assets/logo.png';
-import { User } from 'firebase/auth';
 
 interface HeaderProps {
   cartCount: number;
-  user: User | null;
+  user: CustomUser | null;
   onNavigate: (path: string) => void;
+  onLogout: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ cartCount, user, onNavigate }) => {
+const Header: React.FC<HeaderProps> = ({ cartCount, user, onNavigate, onLogout }) => {
   const handleAuthClick = () => {
     if (user) {
-      
-      onNavigate('/logout'); 
+      onLogout();
     } else {
-
       onNavigate('/login');
     }
   };
@@ -26,19 +24,16 @@ const Header: React.FC<HeaderProps> = ({ cartCount, user, onNavigate }) => {
     <header className="header">
       <nav className="nav">
         <a className="logo" href="#" onClick={(e) => { e.preventDefault(); onNavigate('/'); }}>
-          <img src={logo} alt="Logo" /> 
+          <img src={logo} alt="Logo" />
         </a>
 
         <ul className="nav-links">
-            <li className="nav-link" onClick={() => onNavigate('/')}>Home</li>
-            <li className="nav-link" onClick={() => onNavigate('/menu')}>Menu</li>
-            <li className="nav-link" onClick={() => onNavigate('/company')}>Company</li>
-
-
+          <li className="nav-link" onClick={() => onNavigate('/')}>Home</li>
+          <li className="nav-link" onClick={() => onNavigate('/menu')}>Menu</li>
+          <li className="nav-link" onClick={() => onNavigate('/company')}>Company</li>
           <li className="nav-link" onClick={handleAuthClick} style={{ cursor: 'pointer' }}>
             {user ? 'Logout' : 'Login'}
           </li>
-
           <li>
             <Cart cartCount={cartCount} />
           </li>

@@ -8,9 +8,9 @@ const Counter: React.FC = () => {
 
   return (
     <div>
-      <h2>Счётчик: {count}</h2>
-      <button onClick={() => dispatch(increment())}>+ Увеличить</button>
-      <button onClick={() => dispatch(decrement())}>- Уменьшить</button>
+      <h2>Counter: {count}</h2>
+      <button onClick={() => dispatch(increment())}>+ More</button>
+      <button onClick={() => dispatch(decrement())}>- Less</button>
     </div>
   );
 };

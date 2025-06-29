@@ -1,51 +1,72 @@
-.login-form-container{
+:root {
+  --accent-color: #35B8BE;
+  --border-color: rgba(53, 184, 190, 0.15);
+  --input-bg: #FAFAFA;
+  --input-border: #DDDDDD;
+  --text-color: #08090A;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5em 1em 10em;
+  row-gap: 1.5em;
+
+  h1 {
+    font-size: 2.5em;
+    color: var(--accent-color);
+    letter-spacing: 0.1em;
+    line-height: 3em;
+    text-align: center;
+  }
+
+  .login-form-container {
     background-color: white;
     padding: 2em 3em;
-    border: 0.1em solid rgba(53, 184, 190, 0.15);
+    border: 0.1em solid var(--border-color);
     border-radius: 0.4em;
+    width: 100%;
+    max-width: 500px;
   }
-  .login-container {
+
+  form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 5em 0 10em 0;
-    row-gap: 1em;
-    h1{
-      font-size: 2.5em;
-      color:#35B8BE;
-      letter-spacing: 0.1em;
-      line-height: 3em;
-    }
-    form{ 
-      display: flex;
-      flex-direction: column;
-      input{
-      background-color: #FAFAFA;
-      border: 0.1em solid #DDDDDD; 
+
+    input {
+      background-color: var(--input-bg);
+      border: 0.1em solid var(--input-border);
       border-radius: 0.5em;
-      padding: 0.7em 7em 0.7em 1em;
+      padding: 0.7em 1em;
       font-size: 1em;
-      }
-      input::placeholder{
-      color: #08090A;
-      }
+      width: 100%;
     }
-    span{
-      padding-right: 1em;
-      letter-spacing: 0.1em;
-      color: #08090A;
-      align-self: center;
+
+    input::placeholder {
+      color: var(--text-color);
     }
   }
-  .login-form p{
+
+  .login-form p {
     margin: 0 0 1em 0;
     display: grid;
     grid-template-columns: 1fr 3fr;
+    align-items: center;
   }
-  .button-container{
+
+  span {
+    padding-right: 1em;
+    letter-spacing: 0.1em;
+    color: var(--text-color);
+    align-self: center;
+    font-size: 1em;
+  }
+
+  .button-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 1em;
-    padding: 0 6.5em;
-  
+    gap: 1em;
+    padding-top: 1em;
   }
+}
