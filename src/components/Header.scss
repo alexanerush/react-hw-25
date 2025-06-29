@@ -1,72 +1,80 @@
 .header {
-    padding: 1.5rem 2rem;
-    border-bottom: 1px solid #e5e5e5;
-    background-color: white;
-  }
-  
-  .nav {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--header-border);
+  background-color: var(--header-bg);
+}
 
-  .logo img {
-    width: 35.7px;
-    height: 45.86px;
-    object-fit: contain;
-  }
+.nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  .logo2 img {
-    width: 55px;
-    height: 55px;
-    object-fit: contain;
-  }
-  
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-    padding: 0;
-    margin: 0;
-    align-items: center;
-    cursor: pointer;
-  }
-й  
-  
-  .nav-link {
-    background: none;
-    border: none;
-    color: #333;
-    font-size: 16px;
-    padding: 8px 12px;
-    transition: color 0.3s ease, background-color 0.3s ease;
-    text-decoration: none; 
-    border-radius: 5px;
-   
-  }
-  
-  .nav-link:hover {
-    color: rgba(53, 184, 190, 1);
-    background-color: transparent;
-  }
-  
-  .nav-link.disabled {
-    color: gray;
-    pointer-events: none;
-    cursor: not-allowed;
-  }
+.logo img {
+  width: 35.7px;
+  height: 45.86px;
+  object-fit: contain;
+}
 
-  .cart-indicator {
-    margin-left: auto;
-    font-weight: bold;
-    color: white;
-    background: #f67280;
-    padding: 5px 10px;
-    border-radius: 10px;
+.logo2 img {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  cursor: pointer;
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  color: var(--header-text);
+  font-size: 16px;
+  padding: 8px 12px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.nav-link:hover {
+  color: var(--nav-link-hover);
+  background-color: transparent;
+}
+
+.nav-link.disabled {
+  color: gray;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.cart-indicator {
+  margin-left: auto;
+  font-weight: bold;
+  color: white;
+  background: #f67280;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 8px;
+  transition: transform 0.2s;
+  color: gray;
+
+  &:hover {
+    transform: scale(1.2);
   }
-  
-  
+}
