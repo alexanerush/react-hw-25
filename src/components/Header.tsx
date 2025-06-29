@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Header.scss';
 import Cart from './Cart';
 import { CustomUser } from '../pages/Login';
 import logo from '../assets/logo.png';
+import { ThemeContext } from '../context/ThemeContext';
 
 interface HeaderProps {
-  cartCount: number;
   user: CustomUser | null;
   onNavigate: (path: string) => void;
   onLogout: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ cartCount, user, onNavigate, onLogout }) => {
+const Header: React.FC<HeaderProps> = ({ user, onNavigate, onLogout }) => {
   const handleAuthClick = () => {
     if (user) {
       onLogout();
@@ -20,10 +20,19 @@ const Header: React.FC<HeaderProps> = ({ cartCount, user, onNavigate, onLogout }
     }
   };
 
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
   return (
     <header className="header">
       <nav className="nav">
-        <a className="logo" href="#" onClick={(e) => { e.preventDefault(); onNavigate('/'); }}>
+        <a
+          className="logo"
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            onNavigate('/');
+          }}
+        >
           <img src={logo} alt="Logo" />
         </a>
 
@@ -35,7 +44,12 @@ const Header: React.FC<HeaderProps> = ({ cartCount, user, onNavigate, onLogout }
             {user ? 'Logout' : 'Login'}
           </li>
           <li>
-            <Cart cartCount={cartCount} />
+            <Cart />
+          </li>
+          <li>
+            <button className="theme-toggle-btn" onClick={toggleTheme}>
+              {theme === 'light' ? 'dark' : 'light'}
+            </button>
           </li>
         </ul>
       </nav>
@@ -44,3 +58,4 @@ const Header: React.FC<HeaderProps> = ({ cartCount, user, onNavigate, onLogout }
 };
 
 export default Header;
+

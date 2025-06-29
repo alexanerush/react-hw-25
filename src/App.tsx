@@ -13,6 +13,7 @@ import { auth } from './firebase';
 import { useDispatch } from 'react-redux';
 import { Product } from './types/Product';
 import { addOrder } from './store/slices/ordersSlice';
+import { ThemeProvider } from './context/ThemeContext';
 
 const App: React.FC = () => {
   const [cartCount, setCartCount] = useState<number>(0);
@@ -62,45 +63,46 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="app">
-      <div className="app-container">
+    <ThemeProvider>
+      <div className="app">
+        <div className="app-container">
         <Header
-          cartCount={cartCount}
           user={user}
           onNavigate={handleNavigate}
           onLogout={handleLogout}
         />
 
-        <Routes>
-          <Route path="/" element={<MainPage onAddToCart={handleAddToCart} />} />
-          <Route path="/menu" element={<MenuPage onAddToCart={handleAddToCart} />} />
-          <Route
-            path="/login"
-            element={
-              <Login
-                user={user}
-                onBackHome={() => navigate('/')}
-                setUser={(newUser) => {
-                  setUser(newUser);
-                  navigate('/welcome');
-                }}
-              />
-            }
-          />
-          <Route path="/welcome" element={<Welcome user={user} />} />
-          <Route
-            path="/orders"
-            element={
-              <PrivateRoute user={user}>
-                <Order />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
-
-        <Footer />
+          <Routes>
+            <Route path="/" element={<MainPage onAddToCart={handleAddToCart} />} />
+            <Route path="/menu" element={<MenuPage onAddToCart={handleAddToCart} />} />
+            <Route
+              path="/login"
+              element={
+                <Login
+                  user={user}
+                  onBackHome={() => navigate('/')}
+                  setUser={(newUser) => {
+                    setUser(newUser);
+                    navigate('/welcome');
+                  }}
+                />
+              }
+            />
+            <Route path="/welcome" element={<Welcome user={user} />} />
+            <Route
+              path="/orders"
+              element={
+                <PrivateRoute user={user}>
+                  <Order />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+  
+          <Footer />
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 };
 

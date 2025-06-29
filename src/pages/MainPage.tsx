@@ -12,6 +12,7 @@ interface MainPageProps {
 const MainPageWrapper = styled.main`
   padding: 2rem;
   font-family: 'Inter', sans-serif;
+  background-color: var(--form-bg);
 `;
 
 const MainContent = styled.section`
@@ -21,7 +22,7 @@ const MainContent = styled.section`
   gap: 2rem;
   flex-wrap: wrap;
   position: relative;
-  background: white;
+  background-color: var(--form-bg);
   overflow: hidden;
   padding: 2rem;
 `;
@@ -33,7 +34,7 @@ const BackgroundShape = styled.div`
   left: 0;
   width: 1440px;
   height: 820px;
-  background-color: rgba(245, 251, 252, 1);
+  background-color: var(--form-bg);
   opacity: 0.87;
   transform: rotate(-30deg);
   transform-origin: left bottom;
@@ -53,11 +54,11 @@ const Title = styled.h1`
   font-size: 60px;
   letter-spacing: 1.8px;
   margin-bottom: 2rem;
-  z-index: 1;
+  color: var(--text-main);
 `;
 
 const HighlightText = styled.span`
-  color: #33b8be;
+  color: var(--highlight);
 `;
 
 const Paragraph = styled.p`
@@ -65,15 +66,14 @@ const Paragraph = styled.p`
   font-size: 18px;
   margin-bottom: 4rem;
   letter-spacing: 0.36px;
-  color: rgba(84, 98, 133, 1);
-  z-index: 1;
+  color: var(--text-sub);
 `;
 
 const OrderButton = styled.button`
   width: 193px;
   height: 60px;
   padding: 0.8rem 2rem;
-  background-color: #33b8be;
+  background-color: var(--btn-bg);
   color: white;
   border: none;
   font-weight: bold;
@@ -81,8 +81,11 @@ const OrderButton = styled.button`
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.3s ease;
-  z-index: 1;
   margin-bottom: 2rem;
+
+  &:hover {
+    background-color: var(--btn-hover);
+  }
 `;
 
 const StarWrapper = styled.div`
@@ -104,11 +107,11 @@ const Reviews = styled.div`
 const Rating = styled.h1`
   font-weight: 400;
   font-size: 16px;
-  color: rgba(8, 9, 10, 1);
+  color: var(--text-main);
 `;
 
 const HighlightRating = styled.span`
-  color: rgba(53, 184, 190, 1);
+  color: var(--highlight);
 `;
 
 const MainImage = styled.div`
@@ -129,7 +132,7 @@ const MainPage: React.FC<MainPageProps> = ({ onAddToCart }) => {
       id: 'burger-combo',
       meal: 'Burger Combo',
       price: 9.99,
-      img: '', 
+      img: '',
     };
 
     if (onAddToCart) {
