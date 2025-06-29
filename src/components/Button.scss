@@ -15,10 +15,24 @@
     background-color: transparent;
   }
 
+
   .button--menu:hover {
     background-color: #35B8BE;
     color: white;
     border-color: #35B8BE;
+  }
+
+  .button--home {
+    padding: 1em 2.5em;
+    color: #222222;
+    border: 0.1em solid rgba(97, 114, 131, 0.2);
+    background-color: transparent;
+  
+    &:hover {
+    background-color: #35B8BE;
+    color: white;
+    border-color: #35B8BE;
+    }
   }
 
   .button--more, .button--cancel, .button--submit{

@@ -1,19 +1,21 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 import basket from '../assets/Cart.png';
 import './Cart.scss';
 
-interface CartProps {
-  cartCount: number;
-}
+const Cart: React.FC = () => {
+  const orders = useSelector((state: RootState) => state.orders.orders);
+  const cartCount = orders.reduce((sum, order) => sum + order.quantity, 0);
 
-const Cart: React.FC<CartProps> = ({ cartCount }) => {
   return (
     <div className="cart-container">
       <img src={basket} alt="Cart" className="cart-icon" />
-      <span className="cart-counter">{cartCount}</span>
+      {cartCount > 0 && <span className="cart-counter">{cartCount}</span>}
     </div>
   );
 };
 
 export default Cart;
+
 

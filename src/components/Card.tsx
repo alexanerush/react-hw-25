@@ -1,14 +1,8 @@
 import React from 'react';
 import './Card.scss';
 import Button from './Button';
+import { Product } from '../types/Product'; 
 
-interface Product {
-  id: string | number;
-  img: string;
-  meal: string;
-  price: number;
-  instructions?: string;
-}
 
 interface MenuCardProps {
   product: Product;

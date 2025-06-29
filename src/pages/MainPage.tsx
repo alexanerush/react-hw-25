@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import mainImage from '../assets/mainimg.svg';
 import star from '../assets/star.png';
+import { useNavigate } from 'react-router-dom';
+import { Product } from '../types/Product';
+
+interface MainPageProps {
+  onAddToCart?: (product: Product) => void;
+}
 
 const MainPageWrapper = styled.main`
   padding: 2rem;
@@ -21,7 +27,7 @@ const MainContent = styled.section`
 `;
 
 const BackgroundShape = styled.div`
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
@@ -42,13 +48,11 @@ const MainText = styled.div`
 `;
 
 const Title = styled.h1`
-  font-family: 'Inter', sans-serif;
   white-space: nowrap;
   font-weight: 400;
   font-size: 60px;
   letter-spacing: 1.8px;
   margin-bottom: 2rem;
-  position: relative;
   z-index: 1;
 `;
 
@@ -57,13 +61,11 @@ const HighlightText = styled.span`
 `;
 
 const Paragraph = styled.p`
-  font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 18px;
   margin-bottom: 4rem;
   letter-spacing: 0.36px;
   color: rgba(84, 98, 133, 1);
-  position: relative;
   z-index: 1;
 `;
 
@@ -74,16 +76,13 @@ const OrderButton = styled.button`
   background-color: #33b8be;
   color: white;
   border: none;
-  font-family: 'Inter', sans-serif;
   font-weight: bold;
   font-size: 17px;
   border-radius: 6px;
-  cursor: not-allowed;
+  cursor: pointer;
   transition: background 0.3s ease;
-  position: relative;
   z-index: 1;
   margin-bottom: 2rem;
-  opacity: 0.5;
 `;
 
 const StarWrapper = styled.div`
@@ -103,7 +102,6 @@ const Reviews = styled.div`
 `;
 
 const Rating = styled.h1`
-  font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 16px;
   color: rgba(8, 9, 10, 1);
@@ -116,7 +114,6 @@ const HighlightRating = styled.span`
 const MainImage = styled.div`
   flex: 1;
   max-width: 50%;
-  height: auto;
 `;
 
 const Image = styled.img`
@@ -124,38 +121,25 @@ const Image = styled.img`
   height: auto;
 `;
 
-function useFetch<T>(url: string) {
-  const [data, setData] = useState<T | null>(null);
-  const [status, setStatus] = useState<number | null>(null);
+const MainPage: React.FC<MainPageProps> = ({ onAddToCart }) => {
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        const result = (await response.json()) as T;
-        setData(result);
-        setStatus(response.status);
-
-        localStorage.setItem(
-          'apiLog',
-          JSON.stringify({
-            payload: url,
-            responseStatus: response.status,
-          }),
-        );
-      } catch (error) {
-        console.error('Ошибка при получении данных:', error);
-      }
+  const handleOrderClick = () => {
+    const testProduct: Product = {
+      id: 'burger-combo',
+      meal: 'Burger Combo',
+      price: 9.99,
+      img: '', 
     };
 
-    fetchData();
-  }, [url]);
+    if (onAddToCart) {
+      onAddToCart(testProduct);
+      navigate('/orders');
+    } else {
+      navigate('/login');
+    }
+  };
 
-  return { data, status };
-}
-
-const MainPage: React.FC = () => {
-  
   return (
     <MainPageWrapper>
       <MainContent>
@@ -168,9 +152,11 @@ const MainPage: React.FC = () => {
           </Title>
           <Paragraph>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text ever since the 1500.
+            industry's standard dummy text ever since the 1500s.
           </Paragraph>
-          <OrderButton disabled>Place an Order</OrderButton>
+
+          <OrderButton onClick={handleOrderClick}>Place an Order</OrderButton>
+
           <StarWrapper>
             <StarImage src={star} alt="star" />
           </StarWrapper>
@@ -180,6 +166,7 @@ const MainPage: React.FC = () => {
             </Rating>
           </Reviews>
         </MainText>
+
         <MainImage>
           <Image src={mainImage} alt="Delivery" />
         </MainImage>

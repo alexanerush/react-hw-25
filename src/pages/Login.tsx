@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { User, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
-import useFetch from '../hooks/useFetch';
 import Button from '../components/Button';
+import { useNavigate } from 'react-router-dom';
 import './Login.scss';
 
 export interface CustomUser {
@@ -10,30 +10,25 @@ export interface CustomUser {
   email: string;
 }
 
-interface LoginPageProps {
+interface LoginProps {
   user: CustomUser | null;
   onBackHome: () => void;
+  setUser: (user: CustomUser | null) => void;
 }
 
-const LoginPage: React.FC<LoginPageProps> = ({ user, onBackHome }) => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [error, setError] = useState<string>('');
-
-  const withLogger = useFetch();
-  const loginWithLogger = withLogger((email: string, password: string) => 
-    signInWithEmailAndPassword(auth, email, password)
-  );
-  const logoutWithLogger = withLogger(signOut);
+const Login: React.FC<LoginProps> = ({ user, onBackHome, setUser }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const validate = (): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
     if (!email.trim() || !password.trim()) {
       setError('All fields are required');
       return false;
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setError('Email format is invalid');
       return false;
@@ -48,18 +43,29 @@ const LoginPage: React.FC<LoginPageProps> = ({ user, onBackHome }) => {
     if (!validate()) return;
 
     try {
-      await loginWithLogger(email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const firebaseUser = userCredential.user;
+
+      setUser({
+        name: firebaseUser.displayName || 'User',
+        email: firebaseUser.email || '',
+      });
+
       setEmail('');
       setPassword('');
-    } catch {
-      setError('Login failed. Check credentials.');
+      navigate('/welcome');
+    } catch (err) {
+      console.error(err);
+      setError('Login failed. Check your credentials.');
     }
   };
 
   const handleLogout = async () => {
-    await logoutWithLogger(auth);
+    await signOut(auth);
+    setUser(null);
     setEmail('');
     setPassword('');
+    navigate('/');
   };
 
   const handleCancel = () => {
@@ -70,48 +76,46 @@ const LoginPage: React.FC<LoginPageProps> = ({ user, onBackHome }) => {
 
   return (
     <div className="login-container">
-      <h1>{user ? 'Logged In' : 'Log In'}</h1>
+      <h1>{user ? 'Goodbye or Continue shopping'  : 'Log In'}</h1>
 
       {user ? (
-        <>
+        <div className="button-container">
           <Button onClick={handleLogout} className="button--more">Logout</Button>
           <Button onClick={onBackHome} className="button--menu">Go Home</Button>
-        </>
-      ) : (
-        <div className="login-form-container">
-          <form onSubmit={handleLogin}>
-            <div className="login-form">
-              <p>
-                <span>User</span>
-                <input
-                  type="text"
-                  placeholder="Email"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                />
-              </p>
-              <p>
-                <span>Password</span>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                />
-              </p>
-            </div>
-
-            <div className="button-container">
-              <Button type="submit" className="button--submit">Submit</Button>
-              <Button type="button" onClick={handleCancel} className="button--cancel">Cancel</Button>
-            </div>
-          </form>
         </div>
+      ) : (
+        <form onSubmit={handleLogin} className="login-form-container">
+          <div className="login-form">
+            <p>
+              <span>Email</span>
+              <input
+                type="text"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </p>
+            <p>
+              <span>Password</span>
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </p>
+          </div>
+
+          <div className="button-container">
+            <Button type="submit" className="button--submit">Submit</Button>
+            <Button type="button" onClick={handleCancel} className="button--cancel">Cancel</Button>
+          </div>
+        </form>
       )}
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
     </div>
   );
 };
 
-export default LoginPage;
+export default Login;

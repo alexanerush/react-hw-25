@@ -61,8 +61,8 @@
   
   .menu-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 столбца */
-    grid-template-rows: repeat(3, auto);   /* 3 строки */
+    grid-template-columns: repeat(2, 1fr); 
+    grid-template-rows: repeat(3, auto);   
     gap: 24px;
     margin-bottom: 30px;
     justify-items: center;

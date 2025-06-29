@@ -2,15 +2,9 @@ import React, { useState, useEffect } from 'react';
 import MenuCard from '../components/Card';
 import Button from '../components/Button';
 import './MenuPage.scss';
+import { Product } from '../types/Product'; 
 
-export interface Product {
-  id: string | number;
-  img: string;
-  meal: string;
-  price: number;
-  instructions?: string;
-  category?: string;
-}
+
 
 interface ApiResponse {
   id: string;
@@ -91,11 +85,12 @@ const MenuPage: React.FC<MenuPageProps> = ({ onAddToCart }) => {
 
         <div className="item-cards">
           {visibleItems.map(product => (
-            <MenuCard
-              key={product.id}
-              product={{ ...product, id: String(product.id) }} 
-              onAddToCart={onAddToCart}
-            />
+           <MenuCard
+           key={product.id}
+           product={product} 
+           onAddToCart={onAddToCart}
+         />
+         
           ))}
         </div>
 
